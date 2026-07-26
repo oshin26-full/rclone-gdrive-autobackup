@@ -1,35 +1,33 @@
-# Backup Otomatis Google Drive ke Server Lokal dan ZIP
+Automatic Google Drive Backup to a Local Server and ZIP
 
-Script Bash ini berfungsi untuk mengunduh folder tertentu dari Google Drive ke harddisk lokal server Ubuntu menggunakan Rclone, lalu membungkusnya menjadi file ZIP setiap hari.
+This Bash script downloads specific folders from Google Drive to the local hard drive of an Ubuntu server using Rclone, then packages them into a ZIP file every day.
 
-Sistem ini menggunakan metode copy (bukan sync), sehingga file di server tetap aman meskipun file di Google Drive utama tidak sengaja terhapus.
+This system uses a copy method (not sync), so the files on the server remain safe even if the files on the main Google Drive are accidentally deleted.
 
-## Fitur
-- Backup aman: File di server tidak ikut terhapus jika file di cloud hilang.
-- Arsip harian: Hasil backup otomatis dikompres menjadi file .zip terpisah berdasarkan tanggal hari itu.
-- Filter data: Hanya mengunduh folder yang didaftarkan aja, sehingga menghemat ruang penyimpanan.
+Features
+- Secure backup: Files on the server won’t be deleted if the files in the cloud are lost.
+- Daily archives: Automatic backups are compressed into separate .zip files based on the current date.
+- Data filtering: Only registered folders are downloaded, saving storage space.
 
-## Cara Penggunaan
+How to Use
 
-1. Siapkan Rclone
-Pastikan Rclone sudah terinstall di server Ubuntu dan sudah terhubung ke akun Google Drive Anda via perintah rclone config.
+1. Set Up Rclone
+Make sure Rclone is installed on your Ubuntu server and connected to your Google Drive account via the rclone config command.
 
-2. Buat Daftar Folder Target
-Buat file teks di /home/user/daftar_folder.txt dan isi dengan nama folder Google Drive yang ingin dibackup:
-/Nama Folder Satu/**
-/Nama Folder Dua/**
+2. Create a List of Target Folders
+Create a text file at /home/user/daftar_folder.txt and fill it with the names of the Google Drive folders you want to back up:
+/YOUR-FOLDER-NAME1/
+/YOUR-FOLDER-NAME2/
 
-3. Atur Skrip
-Unduh file backup_gdrive.sh dari repositori ini, lalu buka dengan text editor. Sesuaikan variabel di bagian atas skrip dengan konfigurasi server anda (nama remote Rclone, folder tujuan, dan lokasi file filter).
+3. Configure the Script
+Download the backup_gdrive.sh file from this repository, then open it with a text editor. Adjust the variables at the top of the script to match your server’s configuration (Rclone remote name, destination folder, and filter file location).
 
-Aktifkan izin eksekusi script dengan perintah:
+Enable the script’s execution permissions with the command:
 chmod +x backup_gdrive.sh
 
-4. Atur Jadwal Otomatis
-Buka penjadwal tugas Linux dengan perintah:
+4. Set Up an Automatic Schedule
+Open the Linux job scheduler with the command:
 crontab -e
 
-Tambahkan baris berikut di paling bawah agar skrip berjalan otomatis setiap jam 11 malam:
-0 23 * * * /jalur/ke/file/backup_gdrive.sh
-
-Selesai. Server akan berjalan otomatis setiap malam tanpa perlu dipantau manual.
+Add the following line at the very bottom so the script runs automatically every night at 11 p.m.:
+0 23 * * * /path/to/file/b
